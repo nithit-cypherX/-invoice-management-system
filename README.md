@@ -38,8 +38,6 @@ This exercise builds on the "Responsive Web Design and Mobile-first Approach" la
 
 - Implement error handling for all API requests
 - Display appropriate error messages to users
-- Add loading indicators during API operations
-- Implement retry mechanisms for failed requests
 
 ## Extra Tasks
 
