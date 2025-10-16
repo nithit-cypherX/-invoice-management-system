@@ -32,7 +32,7 @@ const renderInvoices = (invoices: Invoice[]) => {
       <td>${formatDate(invoice.issue_date)}</td>
       <td>${formatDate(invoice.due_date)}</td>
       <td>Company Name</td> <td>${invoice.quotation_number}</td>
-      <td>฿${invoice.total_amount.toFixed(2)}</td>
+      <td>฿${invoice.total_amount}</td>
       <td class="${invoice.status === 'Paid' ? 'text-green-500' : 'text-blue-500'}">${invoice.status}</td>
     `;
     tableBody.appendChild(row);

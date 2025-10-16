@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 
 // ES Module equivalents for __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -8,6 +9,8 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;
+
+app.use(cors());
 
 // --- Static File Serving ---
 // Serve files from your 'dist' folder (where compiled TS/JS will go)
