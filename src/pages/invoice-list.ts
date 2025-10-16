@@ -1,3 +1,4 @@
+// src/pages/invoice-list.ts
 import { getInvoices, getClientById, searchInvoices, getInvoicesById } from '../services/apiService.js';
 import type { Invoice } from '../types/invoices.js';
 import type { Client } from '../types/client.js';
@@ -16,8 +17,9 @@ const renderInvoices = async (invoices: Invoice | Invoice[] | null) => {
 
   tableBody.innerHTML = '';
 
-  if (!invoices) {
-    tableBody.innerHTML = '<tr><td colspan="7" class="text-center py-4">No invoices were found.</td></tr>';
+  // Handle API error case
+  if (invoices === null) {
+    tableBody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-red-500">Could not fetch invoices. Please try again later.</td></tr>';
     return;
   }
 
@@ -53,20 +55,25 @@ const main = () => {
   if (searchForm) {
     searchForm.addEventListener('submit', async (event) => {
       event.preventDefault();
+      
+      // Get values from the form inputs
       const companyNameInput = document.querySelector('input[placeholder="Company Name"]') as HTMLInputElement;
-      const clientEmailInput = document.querySelector('input[placeholder="Client Email"]') as HTMLInputElement;
       const startDateInput = document.getElementById('start-date') as HTMLInputElement;
       const endDateInput = document.getElementById('end-date') as HTMLInputElement;
 
+      // Create the params object for the API call
       const searchParams = {
         company_name: companyNameInput.value || undefined,
-        client_email: clientEmailInput.value || undefined,
         start_date: startDateInput.value || undefined,
         end_date: endDateInput.value || undefined,
       };
 
+      // Call the search function with the params
       const invoices = await searchInvoices(searchParams);
-      console.log(invoices);
+      
+      if (invoices === null) {
+        alert('Error: Could not perform the search. Please try again.');
+      }
       renderInvoices(invoices);
     });
   }
@@ -79,13 +86,21 @@ const main = () => {
 
       if (!isNaN(invoiceId)) {
         const invoice = await getInvoicesById(invoiceId);
-        console.log(invoice);
+        if (invoice === null) {
+            alert(`Error: Could not find an invoice with ID #${invoiceId}.`);
+        }
         renderInvoices(invoice);
       }
     });
   }
 
-  getInvoices().then(renderInvoices);
+  // Initial load with error handling
+  getInvoices().then(invoices => {
+      if (invoices === null) {
+          alert('There was an error loading the initial list of invoices.');
+      }
+      renderInvoices(invoices);
+  });
 };
 
 main();

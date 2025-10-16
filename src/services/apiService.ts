@@ -1,4 +1,4 @@
-// import axios from 'axios';
+// src/services/apiService.ts
 declare const axios: any;
 import type { Invoice } from '../types/invoices.js';
 import type { Client } from '../types/client.js';
@@ -15,31 +15,16 @@ const apiClient = axios.create({
 
 const fetchData = async <T>(url:string, params?:any): Promise<T | null> =>{
   try{
-    const response = await apiClient.get(url, { params }); // <-- THE FIX IS HERE
+    const response = await apiClient.get(url, { params });
     return response.data;
-  } catch(error) {
-    console.error(`Error fetching data from ${url}`, error);
+  } catch(error: any) {
+    // Enhanced error logging
+    console.error(`API Error on GET ${url}:`, error.response?.data || error.message);
     return null;
   }
 }
 
-export const getInvoices = (): Promise<Invoice[] | null> => fetchData<Invoice[]>('/invoice');
-export const getInvoicesById = (id: number): Promise<Invoice| null> => fetchData<Invoice>(`/invoice/by-invoice/${id}`);
-export const getClientById = (id: number): Promise<Client | null> => fetchData<Client>(`/client/${id}`);
-
-type SearchInvoicesParams = {
-  company_name?: string | undefined;
-  client_email?: string | undefined;
-  start_date?: string | undefined;
-  end_date?: string | undefined;
-}
-
-export const searchInvoices = (params: SearchInvoicesParams): Promise<Invoice[] | null> => {
-  return fetchData<Invoice[]>('/invoice/search', params);
-};
-
-
-// Type for the new invoice data
+// Type for creating a new invoice
 export type NewInvoice = {
     invoice_number: string;
     client_id: number;
@@ -56,14 +41,29 @@ export type NewInvoice = {
     created_by: number;
 };
 
+// --- API Functions ---
+export const getInvoices = (): Promise<Invoice[] | null> => fetchData<Invoice[]>('/invoice');
+export const getInvoicesById = (id: number): Promise<Invoice| null> => fetchData<Invoice>(`/invoice/by-invoice/${id}`);
+export const getClientById = (id: number): Promise<Client | null> => fetchData<Client>(`/client/${id}`);
+
+type SearchInvoicesParams = {
+  company_name?: string | undefined;
+  start_date?: string | undefined;
+  end_date?: string | undefined;
+}
+
+export const searchInvoices = (params: SearchInvoicesParams): Promise<Invoice[] | null> => {
+  return fetchData<Invoice[]>('/invoice/search', params);
+};
 
 // Function to create a new invoice
 export const createInvoice = async (invoiceData: NewInvoice): Promise<Invoice | null> => {
     try {
         const response = await apiClient.post('/invoice', invoiceData);
         return response.data;
-    } catch (error) {
-        console.error('Error creating invoice:', error);
+    } catch (error: any) {
+        // Enhanced error logging
+        console.error('API Error on POST /invoice:', error.response?.data || error.message);
         return null;
     }
 };
