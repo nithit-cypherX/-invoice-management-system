@@ -1,0 +1,177 @@
+<!-- 
+AI Declaration:
+No Generative AI tools were used for this lab.  
+All code was written manually by the student.
+
+Reflection:
+I found out that tailwind is quite easy to implement and maintain code well.
+it reduces my time and effort to implement my code.
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Invoice Management</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="flex items-center justify-between p-6">
+            <div>
+                <a href="/html/index.html">
+                    <img src="/assets/logo.png" alt="logo" style="width: 48px;" />
+                </a>
+            </div>
+            <div class="font-medium">
+                <a href="/html/invoice.html">Invoice</a>
+                <a class="ps-5" href="#">Quotation</a>
+                <a class="ps-5" href="#">About Us</a>
+            </div>
+            <div class="font-medium">
+                <a href="/html/login.html">Log out →</a>
+            </div>
+        </nav>
+
+        <!-- Banner -->
+        <section class=" bg-[url(/assets/bg-login.jpg)] h-64 w-screen flex justify-center items-center">
+            <h1 class="text-stone-100 font-bold text-2xl">Invoice Management System</h1>
+        </section>
+
+
+    </header>
+
+    <main class="pt-20 flex justify-center">
+        <section>
+            <section>
+                <!-- Filter & Search -->
+                <section class="border-1 p-4 border-gray-200 shadow-sm ">
+                    <form class="flex flex-wrap items-center justify-between">
+                        <label class="font-medium me-2">Search:</label>
+                        <input class="border-1 rounded-sm  border-gray-500 p-1 me-2" type="text"
+                            placeholder="Company Name" />
+                        <input class="border-1 rounded-sm  border-gray-500 p-1 me-2" type="email"
+                            placeholder="Client Email" />
+
+                        <div>
+                            <label for="start-date">Issue Date From</label>
+                            <input class="border-1 rounded-sm  border-gray-500 p-1" type="date" id="start-date" />
+                        </div>
+
+                        <div>
+                            <label for="end-date">To</label>
+                            <input class="border-1 rounded-sm  border-gray-500 p-1 me-2" type="date" id="end-date" />
+                        </div>
+
+                        <button class="w-25 bg-blue-500 my-3 p-1 rounded-sm text-stone-100"
+                            type="submit">Search</button>
+                    </form>
+                    <section>
+                        <button class="bg-blue-500 my-3 p-2 rounded-sm text-stone-100">All</button>
+                        <button class="bg-stone-200 my-3 p-2 rounded-sm">Paid</button>
+                        <button class="bg-stone-200 my-3 p-2 rounded-sm">Unpaid</button>
+                    </section>
+                </section>
+
+                <!-- Invoice List -->
+                <section class="mt-2">
+                    <div>
+                        <div>
+                            <!-- Invoice List Header -->
+                            <section class="my-4 flex justify-between border-1 p-4 border-gray-200 shadow-lg">
+                                <div>
+                                    <h2 class="text-2xl font-bold">Invoices</h2>
+                                    <p class="text-stone-500">A list of all the invoices in your account.</p>
+                                </div>
+                                <a class="bg-blue-500 rounded-sm text-stone-100 pt-2 px-2 h-10"
+                                    href="/html/create_invoice.html">
+                                    ➕ Create an Invoice
+                                </a>
+                            </section>
+
+                            <!-- Invoice Table -->
+                            <section>
+                                <table class="w-full border-1 border-gray-200 shadow-lg">
+                                    <thead class="text-center border-1 border-gray-200 bg-stone-100">
+                                        <tr>
+                                            <th class="py-4">Invoice#</th>
+                                            <th>Issue Date</th>
+                                            <th>Due Date</th>
+                                            <th>Company</th>
+                                            <th>Quotation#</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                        <tr class="border-b-1 border-gray-200">
+                                            <td class="py-3">56</td>
+                                            <td>Aug 01, 2025</td>
+                                            <td>Oct 01, 2025</td>
+                                            <td>Acme Corp.</td>
+                                            <td>Q-2025-003</td>
+                                            <td>฿6,100.00</td>
+                                            <td class="text-blue-500">Unpaid</td>
+                                        </tr>
+                                        <tr class="border-b-1 border-gray-200">
+                                            <td class="py-3">57</td>
+                                            <td>Jul 15, 2025</td>
+                                            <td>Aug 15, 2025</td>
+                                            <td>Global Tech Ltd.</td>
+                                            <td>Q-2025-004</td>
+                                            <td>฿8,250.00</td>
+                                            <td class="text-green-500">Paid</td>
+                                        </tr>
+                                        <tr class="border-b-1 border-gray-200">
+                                            <td class="py-3">58</td>
+                                            <td>Aug 10, 2025</td>
+                                            <td>Sep 10, 2025</td>
+                                            <td>ZenoTech Systems</td>
+                                            <td>Q-2025-005</td>
+                                            <td>฿5,400.00</td>
+                                            <td class="text-blue-500">Unpaid</td>
+                                        </tr>
+                                        <tr class="border-b-1 border-gray-200">
+                                            <td class="py-3">59</td>
+                                            <td>Jun 20, 2025</td>
+                                            <td>Jul 20, 2025</td>
+                                            <td>Bright Future Co.</td>
+                                            <td>Q-2025-006</td>
+                                            <td>฿3,980.00</td>
+                                            <td class="text-green-500">Paid</td>
+                                        </tr>
+                                        <tr class="border-b-1 border-gray-200">
+                                            <td class="py-3">60</td>
+                                            <td>May 28, 2025</td>
+                                            <td>Jun 28, 2025</td>
+                                            <td>Nova Systems</td>
+                                            <td>Q-2025-007</td>
+                                            <td>฿4,750.00</td>
+                                            <td class="text-blue-500">Unpaid</td>
+                                        </tr>
+                                        <tr class="border-b-1 border-gray-200">
+                                            <td class="py-3">61</td>
+                                            <td>Jul 05, 2025</td>
+                                            <td>Aug 05, 2025</td>
+                                            <td>ICT Mahidol</td>
+                                            <td>Q-2025-008</td>
+                                            <td>฿10,000.00</td>
+                                            <td class="text-green-500">Paid</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </main>
+
+    <footer class="bg-blue-500 text-center text-stone-100 py-4 mt-20">
+        <p>Use for Tailwind Demo © Faculty of ICT, Mahidol University</p>
+    </footer>
+</body>
+
+</html>
