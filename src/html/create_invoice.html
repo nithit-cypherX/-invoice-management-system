@@ -1,0 +1,113 @@
+<!-- 
+AI Declaration:
+No Generative AI tools were used for this lab.  
+All code was written manually by the student.
+
+Reflection:
+I found out that tailwind is quite easy to implement and maintain code well.
+it reduces my time and effort to implement my code.
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Create an Invoice</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+  <header >
+    <nav class="flex items-center justify-between p-6">
+      <div>
+        <a href="#">
+          <img src="/assets/logo.png" alt="logo" style="width:48px;"/>
+        </a>
+      </div>
+      <div class="font-medium">
+        <a href="/invoice.html">Invoice</a>
+        <a class="ps-5" href="">Quotation</a>
+        <a class="ps-5" href="">About Us</a>
+      </div>
+      <div class="font-medium">
+        <a href="/login.html">Log out →</a>
+      </div>
+    </nav>
+
+    <!-- Banner -->
+    <section class=" bg-[url(/assets/bg-login.jpg)] h-64 w-screen flex justify-center items-center">
+      <h1 class="text-stone-100 font-bold text-2xl">Create a New Invoice</h1>
+    </section>
+
+
+  </header>
+
+  <main class="pt-2 flex justify-center">
+    <form class="border-1 border-gray-200 shadow-sm w-3xl p-4">
+      <h2 class="font-bold text-2xl">Create New Invoice</h2>
+      <div class="pt-5 flex flex-col">
+        <label for="client_id">Client ID</label>
+        <input type="text" id="client_id" class="border-2 border-gray-200 rounded-sm p-2" name="client_id" />
+      </div>
+
+      <div class="pt-5 flex flex-col">
+        <label for="quotation_number">Quotation Number</label>
+        <select id="quotation_number" class="border-2 border-gray-200 rounded-sm p-2" name="quotation_number">
+          <option value="">Select the Quotation</option>
+          <option value="Q-2025-001">Q-2025-001</option>
+          <option value="Q-2025-002">Q-2025-002</option>
+          <option value="Q-2025-003">Q-2025-003</option>
+          <option value="Q-2025-004">Q-2025-004</option>
+          <option value="Q-2025-005">Q-2025-005</option>
+          <option value="Q-2025-006">Q-2025-006</option>
+          <option value="Q-2025-007">Q-2025-007</option>
+          <option value="Q-2025-008">Q-2025-008</option>
+        </select>
+      </div>
+
+      <div class="pt-5 flex flex-col">
+        <label for="issue_date">Issue Date</label>
+        <input type="date" id="issue_date" class="border-2 border-gray-200 rounded-sm p-2" name="issue_date" />
+      </div>
+
+      <div class="pt-5 flex flex-col">
+        <label for="due_date">Due Date</label>
+        <input type="date" id="due_date" class="border-2 border-gray-200 rounded-sm p-2" name="due_date" />
+      </div>
+
+      <div class="pt-5 flex flex-col">
+        <label for="status">Status</label>
+        <select id="status" class="border-2 border-gray-200 rounded-sm p-2" name="status">
+          <option value="Paid">Paid</option>
+          <option value="Unpaid">Unpaid</option>
+        </select>
+      </div>
+
+      <div class="pt-5 flex flex-col">
+        <label for="subtotal">Subtotal</label>
+        <input type="number" id="subtotal" class="border-2 border-gray-200 rounded-sm p-2" name="subtotal" placeholder="0" />
+      </div>
+
+      <div class="pt-5 flex flex-col">
+        <label for="tax_amount">Tax Amount <span>(7%)</span></label>
+        <input type="number" id="tax_amount" class="border-2 border-gray-200 rounded-sm p-2" name="tax_amount" placeholder="0" />
+      </div>
+
+      <div class="pt-5 flex flex-col">
+        <label for="total_amount">Total Amount</label>
+        <input type="number" id="total_amount" class="border-2 border-gray-200 rounded-sm p-2" name="total_amount" placeholder="0" />
+      </div>
+
+      <div class="pt-10 flex flex-col">
+        <a href="/invoice.html" class="bg-blue-500 w-fit p-2 rounded-sm text-stone-100">Create Invoice</a>
+      </div>
+    </form>
+  </main>
+
+  <footer class="bg-blue-500 text-center text-stone-100 py-4 mt-20">
+    <p>Use for Demo &copy; Faculty of ICT, Mahidol University</p>
+  </footer>
+</body>
+
+</html>
