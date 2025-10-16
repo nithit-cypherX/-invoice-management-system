@@ -1,61 +1,91 @@
-import { getInvoices } from '../services/apiService.js';
+import { getInvoices, getClientById, searchInvoices, getInvoicesById } from '../services/apiService.js';
 import type { Invoice } from '../types/invoices.js';
+import type { Client } from '../types/client.js';
 
-// Function to format the date for display
 const formatDate = (dateString: string): string => {
   const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
   return new Date(dateString).toLocaleDateString('en-US', options);
 };
 
-// This function takes the list of invoices and builds the HTML table rows
-const renderInvoices = (invoices: Invoice[]) => {
+const renderInvoices = async (invoices: Invoice | Invoice[] | null) => {
   const tableBody = document.getElementById('invoice-table-body');
   if (!tableBody) {
     console.error("Table body with id 'invoice-table-body' not found!");
     return;
   }
 
-  // Clear any old data
   tableBody.innerHTML = '';
 
-  if (invoices.length === 0) {
+  if (!invoices) {
     tableBody.innerHTML = '<tr><td colspan="7" class="text-center py-4">No invoices were found.</td></tr>';
     return;
   }
 
-  // Create and append a row for each invoice
-  invoices.forEach(invoice => {
+  const invoicesArray = Array.isArray(invoices) ? invoices : [invoices];
+
+  if (invoicesArray.length === 0) {
+    tableBody.innerHTML = '<tr><td colspan="7" class="text-center py-4">No invoices were found.</td></tr>';
+    return;
+  }
+
+  for (const invoice of invoicesArray) {
+    const client = await getClientById(invoice.client_id);
+    const companyName = client ? client.company_name : 'N/A';
     const row = document.createElement('tr');
     row.className = 'border-b-1 border-gray-200';
     row.innerHTML = `
       <td class="py-3">${invoice.invoice_id}</td>
       <td>${formatDate(invoice.issue_date)}</td>
       <td>${formatDate(invoice.due_date)}</td>
-      <td>Company Name</td> <td>${invoice.quotation_number}</td>
+      <td>${companyName}</td>
+      <td>${invoice.quotation_number}</td>
       <td>฿${invoice.total_amount}</td>
       <td class="${invoice.status === 'Paid' ? 'text-green-500' : 'text-blue-500'}">${invoice.status}</td>
     `;
     tableBody.appendChild(row);
-  });
+  }
 };
 
-// This is the main function that sets everything up
 const main = () => {
   const searchForm = document.getElementById('search-form');
-  if (!searchForm) {
-    console.error("Search form with id 'search-form' not found!");
-    return;
+  const searchByIdForm = document.getElementById('search-by-id-form');
+
+  if (searchForm) {
+    searchForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const companyNameInput = document.querySelector('input[placeholder="Company Name"]') as HTMLInputElement;
+      const clientEmailInput = document.querySelector('input[placeholder="Client Email"]') as HTMLInputElement;
+      const startDateInput = document.getElementById('start-date') as HTMLInputElement;
+      const endDateInput = document.getElementById('end-date') as HTMLInputElement;
+
+      const searchParams = {
+        company_name: companyNameInput.value || undefined,
+        client_email: clientEmailInput.value || undefined,
+        start_date: startDateInput.value || undefined,
+        end_date: endDateInput.value || undefined,
+      };
+
+      const invoices = await searchInvoices(searchParams);
+      console.log(invoices);
+      renderInvoices(invoices);
+    });
   }
 
-  // Listen for the form to be submitted
-  searchForm.addEventListener('submit', async (event) => {
-    event.preventDefault(); // IMPORTANT: This stops the page from reloading
-    
-    console.log("Search button clicked. Fetching invoices...");
-    const invoices = await getInvoices(); // Call the API
-    renderInvoices(invoices); // Display the results
-  });
+  if (searchByIdForm) {
+    searchByIdForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const invoiceIdInput = document.getElementById('invoice-id') as HTMLInputElement;
+      const invoiceId = parseInt(invoiceIdInput.value, 10);
+
+      if (!isNaN(invoiceId)) {
+        const invoice = await getInvoicesById(invoiceId);
+        console.log(invoice);
+        renderInvoices(invoice);
+      }
+    });
+  }
+
+  getInvoices().then(renderInvoices);
 };
 
-// Run the main function when the page is ready
 main();
