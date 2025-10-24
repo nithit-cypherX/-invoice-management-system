@@ -1,4 +1,9 @@
 // src/pages/invoice-list.ts
+/*
+AI Declaration:
+I used ChatGPT to help debug my all codde and used for reference 
+
+*/
 import { getInvoices, getClientById, searchInvoices, getInvoicesById } from '../services/apiService.js';
 import type { Invoice } from '../types/invoices.js';
 import type { Client } from '../types/client.js';

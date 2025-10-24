@@ -1,9 +1,15 @@
+/*
+AI Declaration:
+I used ChatGPT to help debug my all codde and used for reference 
+
+*/
+
 // src/services/apiService.ts
 declare const axios: any;
 import type { Invoice } from '../types/invoices.js';
 import type { Client } from '../types/client.js';
  
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjM3LCJlbWFpbCI6InNlZTFAZ21haWwuY29tIiwiaWF0IjoxNzYwNjE4MDQxLCJleHAiOjE3NjA2MjE2NDF9.A66I3lhCT_7dR8J7NctSFGb1nhpcypprSABcWXzFxOI';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU5LCJlbWFpbCI6InRocmVlMTIzQGdtYWlsLmNvbSIsImlhdCI6MTc2MTI3NTc3NywiZXhwIjoxNzYxMjc5Mzc3fQ.z_lddD4JB9p0zijP3a-ENwwmNM2MrBTyjvPeOaV4kSY';
 
 const apiClient = axios.create({
   baseURL: 'http://203.159.93.114:3100/',

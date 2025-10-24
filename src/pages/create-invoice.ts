@@ -1,4 +1,9 @@
 // src/pages/create-invoice.ts
+/*
+AI Declaration:
+I used ChatGPT to help debug my all codde and used for reference 
+
+*/
 import { createInvoice } from '../services/apiService.js';
 import type { NewInvoice } from '../services/apiService.js';
 
